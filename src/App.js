@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{Component} from 'react';
+import { Button, Input, Textarea } from '../Utils/Utils';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
+class App extends Component {
+  state={
+    searchString:''
+  }
+  handleChange = (e) => {
+    this.setState({
+    [e.target.name]:e.target.value
+    },()=>{
+        console.log(this.state)
+    })
+
+  }
+  render(){
+
+    return (
+      <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    
       </header>
+      <div className='search-box'>
+              <label htmlFor='search-string'>
+                Search
+              </label>
+              <Input
+                type="text"
+                name='search-string'
+                onChange={this.handleChange}
+                required
+                >
+              </Input>
+            </div>
     </div>
   );
+}
 }
 
 export default App;
