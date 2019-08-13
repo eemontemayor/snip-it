@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import { Button, Input, Textarea } from './Utils/Utils';
 import './App.css';
 import config from './config';
-
+import Translations from './Component/Translations'
+import TranslationServices from './services/TranslationServices'
 class App extends Component {
   state={
     searchString:''
@@ -17,26 +18,10 @@ class App extends Component {
 
   handleSubmit=(e)=>{
     e.preventDefault()
-   
-      return fetch(`${config.API_ENDPOINT}`,{
-          method:'GET',
-          headers:{
-            'content-type':'application/json',
-          },
-        })
-        .then((res) => 
-        {
-          if (!res.ok)
-            return res.json().then(e => Promise.reject(e))
-          return res.json()
-           
-        })
-        .catch(error => {
-          console.error({error})
-        })
-     
-      
+    TranslationServices.getTranslations(this.state.searchString)
+    .then(res => console.log('from App.js', res))
   }
+   
   render(){
 
     return (
