@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
-import { Button, Input, Textarea } from './Utils/Utils';
+import { Button, Input } from './Utils/Utils';
 import './App.css';
-import config from './config';
 import Translations from './Component/Translations'
 import TranslationServices from './services/TranslationServices'
 class App extends Component {
   state={
-    searchString:''
+    searchString:'',
+    results:[]
   }
   handleChange = (e) => {
     this.setState({
@@ -19,9 +19,16 @@ class App extends Component {
   handleSubmit=(e)=>{
     e.preventDefault()
     TranslationServices.getTranslations(this.state.searchString)
-    .then(res => console.log('from App.js', res))
-  }
-   
+    .then(res => {
+      console.log('from App.js', res.body)
+      this.setState({
+        results:res.body.matches
+      },()=>{
+        console.log(this.state)
+      })
+      
+  })
+} 
   render(){
 
     return (
@@ -29,10 +36,10 @@ class App extends Component {
       <header className="App-header">
       Snip It
       </header>
-      <form onSubmit={this.handleSubmit}>
       <div className='search-box'>
+      <form onSubmit={this.handleSubmit}>
               <label htmlFor='search'>
-                Search
+                
               </label>
               <Input
                 type="text"
@@ -41,11 +48,15 @@ class App extends Component {
                 required
                 >
               </Input>
-              <Button type='submit' >
+              <div className='btn-holder'>
 
+              <Button className='search-btn'type='submit' >
+                Search
               </Button>
-            </div>
+              </div>
             </form>
+            </div>
+{    this.state.results  &&  <Translations results={this.state.results}/>}
     </div>
   );
 }
