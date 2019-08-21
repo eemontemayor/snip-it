@@ -60,7 +60,8 @@ class App extends Component {
           </form>
         </div>
         <Section >
-          {this.state.results && <> <SearchStr className='search-str' string={this.state.searchStr}/><Translations className='search-trans'results={this.state.results}/></>}
+          {this.state.results && <SearchStr className='search-str' string={this.state.searchStr}/>}
+          {this.state.results && <Translations className='search-trans'results={this.state.results}string={this.state.searchStr}/> }
         </Section>
        
       </div>
