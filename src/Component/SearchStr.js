@@ -5,7 +5,8 @@ function SearchStr(props){
 
 if(props.string === ''){
     return(
-    <div className='container'>
+        <div className='container'>
+            
     <div className='text'>
     search for a snippet in spanish to see translation
         </div>

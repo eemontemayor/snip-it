@@ -1,14 +1,14 @@
 import React,{Component} from 'react';
 import './Translations.css'
-
+import TransItem from './TransItem'
 
 class Translations extends Component{
 
-handleClick=()=>{
+handleSeeMoreClick=()=>{
     const strArr = this.props.string.split(' ')
     console.log(strArr)
-    //  fetch(`api.datamuse.com/words?v=es&ml=${this.props.string}`)
-     fetch(`api.datamuse.com/words?ml=trumpet`)
+     fetch(`api.datamuse.com/words?v=es&ml=${this.props.string}`)
+    //  fetch(`api.datamuse.com/words?ml=trumpet`)
      .then(res=>{
          console.log(res)
      })
@@ -17,10 +17,10 @@ handleClick=()=>{
   render(){
       console.log(this.props.results)
 
-      const resultItem = this.props.results.map((item,index)=>{
-          return <li className='trans-item' key={index}>{item.translation}<button onClick={this.handleClick}>see more</button></li> })
+      const resultItems = this.props.results.map((item,index)=>{
+          return <TransItem translation={item.translation} key={index} index={index}/> })
       return (
-          <ul>{resultItem}</ul>
+          <ul className='result-list'>{resultItems}</ul>
       )
   }
 }
